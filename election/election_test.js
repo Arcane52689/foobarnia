@@ -10,6 +10,7 @@ test('majority win', function (t) {
 });
 
 test('election runoff', function(t) {
+  // Currently, these tests want the output to be in order of the candidates integer rather than the number of votes the candidate received
   t.plan(1);
   var votes = [7,8,3,3,3,8,2,4,4,4,2,2,4,2,3,4,5,3,4,4];
   var results = election.tally(votes);
