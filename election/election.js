@@ -2,7 +2,7 @@ exports.tally = function(votes) {
   // TODO implement tally()
 
   var polls = {};
-  var vote
+  var vote, results
   for (var i = 0; i < votes.length; i++) {
     vote = votes[i];
     if (polls[vote]) {
@@ -12,6 +12,15 @@ exports.tally = function(votes) {
     }
   }
 
+  results = [];
+  for (key in polls) {
+    if (polls.hasOwnProperty(key)) {
+      results.push({
+        canditate: key,
+        tally: polls[key]
+      })
+    }
+  }
 
 
 
