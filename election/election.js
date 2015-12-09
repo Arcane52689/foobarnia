@@ -6,43 +6,43 @@ exports.tally = function(votes) {
   for (var i = 0; i < votes.length; i++) {
     vote = votes[i];
     if (polls[vote]) {
-      polls[vote] = polls[vote] + 1;
+      polls[vote].tally += 1;
     } else {
-      polls[vote] = 1;
+      polls[vote] = {
+        candidate: vote,
+        tally: 1
+      };
     }
   }
 
   results = [];
   for (key in polls) {
     if (polls.hasOwnProperty(key)) {
-      results.push({
-        candidate: key,
-        tally: polls[key]
-      })
+      results.push(polls[key])
     }
   }
-  console.log(results)
   results.sort(function(obj1, obj2) {
     if (obj1.tally < obj2.tally) {
-      return 1;
+      return -1;
     } else if (obj1.tally === obj2.tally) {
       return 0;
     } else {
-      return -1;
+      return 1;
     }
   })
+  console.log(results)
 
-  if (results[0].tally > votes.length / 2) {
-    return [results[0].candidate];
+  if (results[results.length - 1].tally >= votes.length / 2) {
+    return [results[results.length - 1].candidate];
   }
 
-  var lastIndex = 2;
-  while (results[lastIndex].tally === results[lastIndex + 1]) {
-    lastIndex += 1;
+  var lastIndex = results.length - 4 ;
+  while (results[lastIndex].tally === results[lastIndex - 1].tally) {
+    lastIndex -= 1;
   }
 
   var finalCandidates = [];
-  results.slice(0,lastIndex).forEach(function(result) {
+  results.slice(lastIndex, -1).forEach(function(result) {
     finalCandidates.push(result.candidate);
   })
 
