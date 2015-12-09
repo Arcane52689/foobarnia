@@ -32,6 +32,13 @@ exports.tally = function(votes) {
     }
   })
 
+  if (results[0].tally > votes.length / 2)
+
+  var lastIndex = 2;
+  while (results[lastIndex].tally === results[lastIndex + 1]) {
+    lastIndex += 1;
+  }
+
 
 
 
