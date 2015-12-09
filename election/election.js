@@ -16,19 +16,19 @@ exports.tally = function(votes) {
   for (key in polls) {
     if (polls.hasOwnProperty(key)) {
       results.push({
-        canditate: key,
+        candidate: key,
         tally: polls[key]
       })
     }
   }
-
+  console.log(results)
   results.sort(function(obj1, obj2) {
     if (obj1.tally < obj2.tally) {
-      return -1;
+      return 1;
     } else if (obj1.tally === obj2.tally) {
       return 0;
     } else {
-      return 1;
+      return -1;
     }
   })
 
@@ -41,9 +41,11 @@ exports.tally = function(votes) {
     lastIndex += 1;
   }
 
+  var finalCandidates = [];
+  results.slice(0,lastIndex).forEach(function(result) {
+    finalCandidates.push(result.candidate);
+  })
 
+  return finalCandidates;
 
-
-
-  return []
 }
