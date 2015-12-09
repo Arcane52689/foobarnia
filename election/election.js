@@ -22,6 +22,16 @@ exports.tally = function(votes) {
     }
   }
 
+  results.sort(function(obj1, obj2) {
+    if (obj1.tally < obj2.tally) {
+      return -1;
+    } else if (obj1.tally === obj2.tally) {
+      return 0;
+    } else {
+      return 1;
+    }
+  })
+
 
 
 
