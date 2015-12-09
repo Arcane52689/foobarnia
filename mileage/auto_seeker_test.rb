@@ -23,18 +23,33 @@ describe AutoSeeker do
     end
 
     it "can filter by fuel" do
-      @seeker.filter 'fuel', 'gas'
+      @seeker.filter({ fuel: 'gas'})
       @seeker.autos.collect(&:fuel).uniq.must_equal ['gas']
     end
 
     it "can filter by exact price" do
-      @seeker.filter 'price', 12333
+      @seeker.filter price: 12333
       @seeker.autos.length.must_equal 1
     end
 
-    it "can filter when given a range of prices" do
-      @seeker.filter {}
+    it "can filter when given a low_price" do
+      @seeker.filter low_price: 13000
       @seeker.autos.length.must_equal 3
+    end
+
+    it "can filter when given a high_price" do
+      @seeker.filter high_price: 13000
+      @seeker.autos.length.must_equal 2
+    end
+
+    it "can filter when given a price range" do
+      @seeker.filter high_price: 13300, low_price: 12500
+      @seeker.autos.length.must_equal 1
+    end
+
+    it "can filter when given multiple options" do
+      @seeker.filter color: "Red", high_price: 13000, fuel: 'gas'
+      @seeker.autos.length.must_equal 1
     end
 
   end
@@ -44,8 +59,8 @@ describe AutoSeeker do
       AutoSeeker.median_mileage(@seeker.autos).must_equal 26.0
     end
 
-    it "ignores cars without a mileate present" do
-      @seeker.filter 'color', 'Teal'
+    it "ignores cars without a mileage present" do
+      @seeker.filter({ color: 'Teal'})
       AutoSeeker.median_mileage(@seeker.autos).must_equal 27.0
     end
 
