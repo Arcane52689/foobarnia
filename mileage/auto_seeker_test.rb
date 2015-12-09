@@ -18,7 +18,7 @@ describe AutoSeeker do
 
   describe "#filter " do
     it "can filter by color " do
-      @seeker.filter 'color', 'Red'
+      @seeker.filter({ color:'Red'})
       @seeker.autos.collect(&:color).uniq.must_equal ['Red']
     end
 
@@ -33,7 +33,7 @@ describe AutoSeeker do
     end
 
     it "can filter when given a range of prices" do
-      @seeker.filter 'price', [12000,14000]
+      @seeker.filter {}
       @seeker.autos.length.must_equal 3
     end
 
