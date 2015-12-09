@@ -32,7 +32,9 @@ exports.tally = function(votes) {
     }
   })
 
-  if (results[0].tally > votes.length / 2)
+  if (results[0].tally > votes.length / 2) {
+    return [results[0].candidate];
+  }
 
   var lastIndex = 2;
   while (results[lastIndex].tally === results[lastIndex + 1]) {
