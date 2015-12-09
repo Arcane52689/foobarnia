@@ -8,13 +8,13 @@ class AutoSeeker
   end
 
   def filter options
-    @autos = autos
     [:low_price, :high_price, :color, :fuel, :price].each do |sym|
       if options[sym]
         filter = "filter_by_" + sym.to_s
         self.send(filter.to_sym, options[sym])
       end
     end
+    @autos
   end
 
   def filter_by_low_price low_price
