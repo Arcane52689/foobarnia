@@ -23,29 +23,29 @@ exports.tally = function(votes) {
   }
   results.sort(function(obj1, obj2) {
     if (obj1.tally < obj2.tally) {
-      return -1;
+      return 1;
     } else if (obj1.tally === obj2.tally) {
       return 0;
     } else {
-      return 1;
+      return -1;
     }
   })
   console.log(results)
 
-  if (results[results.length - 1].tally >= votes.length / 2) {
-    return [results[results.length - 1].candidate];
+  if (results[0].tally >= votes.length / 2) {
+    return [results[0].candidate];
   }
 
-  var lastIndex = results.length - 4 ;
-  while (results[lastIndex].tally === results[lastIndex - 1].tally) {
-    lastIndex -= 1;
+  var lastIndex = 2;
+  while (results[lastIndex].tally === results[lastIndex + 1].tally) {
+    lastIndex += 1;
   }
 
   var finalCandidates = [];
-  results.slice(lastIndex, -1).forEach(function(result) {
+  results.slice(0, lastIndex + 1).forEach(function(result) {
     finalCandidates.push(result.candidate);
   })
 
-  return finalCandidates;
+  return finalCandidates.sort();
 
 }
